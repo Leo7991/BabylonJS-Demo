@@ -2,7 +2,7 @@
  * @Author: Leo
  * @Date: 2023-03-09 15:24:52
  * @LastEditors: Leo
- * @LastEditTime: 2023-03-10 10:27:57
+ * @LastEditTime: 2023-03-10 14:34:40
  * @FilePath: \babylonJS\src\components\testDemo2.vue
  * @Description: 
  * 
@@ -27,6 +27,7 @@ import {
     StandardMaterial,
     Color3,
     HemisphericLight,
+    SpotLight,
     ActionManager,
     InterpolateValueAction,
     HighlightLayer,
@@ -59,6 +60,30 @@ function initCanvas() {
                 scene
             );
             camera.attachControl(canvas, true);
+            // 添加光源
+            // 环境光
+            const light1 = new HemisphericLight(
+                "light1",
+                new Vector3(1, 2, 1),
+                scene
+            );
+
+            // 聚光灯
+            // const light2 = new SpotLight(
+            //     "light2",
+            //     new Vector3(0,3,1),
+            //     new Vector3(0,-1,0),
+            //     Math.PI / 5, 
+            //     2,
+            //     scene
+            // )
+
+            // 点光源
+            // const light3 = new PointLight(
+            //     "light3",
+            //     new Vector3(0,2,1),
+            //     scene
+            // );
 
             const skybox = MeshBuilder.CreateBox(
                 'skybox',
@@ -89,9 +114,9 @@ function initCanvas() {
                 },
                 scene
             );
-            
+
             // 返回已存在的字符串对应名的变量
-            function strToVar(str: string){
+            function strToVar(str: string) {
                 let name = str;
                 return eval(name);
             };
@@ -133,9 +158,9 @@ function initCanvas() {
 
             // 物体点击事件
             scene.onPointerObservable.add(function (e) {
-                if (e?.pickInfo?.hit ===true){
+                if (e?.pickInfo?.hit === true) {
                     let name = e.pickInfo.pickedMesh?.name;
-                    console.log('点击了',name);
+                    console.log('点击了', name);
                     window.alert(`点击了${name}`)
                 }
             }, PointerEventTypes.POINTERTAP);
